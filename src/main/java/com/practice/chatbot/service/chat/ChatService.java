@@ -10,6 +10,8 @@ import com.practice.chatbot.repository.chat.ThreadRepository;
 import com.practice.chatbot.repository.user.UserRepository;
 import com.practice.chatbot.web.controller.chat.request.ChatRequest;
 import com.practice.chatbot.web.controller.chat.response.ChatResponse;
+import com.practice.chatbot.web.controller.chat.response.ThreadResponse;
+import com.practice.chatbot.web.vo.PageResponse;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,4 +101,9 @@ public class ChatService {
     }
 
 
+    public PageResponse<ThreadResponse> readThread(String userId, Pageable pageable) {
+
+        return threadRepository.findByUserIdWithPagination(userId, pageable);
+
+    }
 }
