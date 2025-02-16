@@ -1,6 +1,7 @@
 package com.practice.chatbot.config;
 
 import com.practice.chatbot.exception.NotFoundException;
+import com.practice.chatbot.model.GenericResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +21,19 @@ public class GlobalExceptionHandler {
      * 일반적인 런타임 예외 처리
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
-        log.error("RuntimeException 발생: {}", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    public ResponseEntity<GenericResponse<String>> handleRuntimeException(RuntimeException ex) {
+        log.error("Exception 발생: {}", ex.getMessage());
+        log.error("Exception 발생: {}", ex.getCause());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(GenericResponse.error(ex.getMessage()));
     }
 
     /**
      * 잘못된 요청 데이터 처리 (Validation)
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(
+        MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
