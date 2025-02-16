@@ -4,7 +4,8 @@ server:
 
 jwt:
   secret: "your-256-bit-secret-key-should-be-long-enough"
-  expiration: 86400000 # 1? (???)
+  access-expiration: 900000    # Access Token 만료 (15분)
+  refresh-expiration: 1209600000 # Refresh Token 만료 (14일)
 
 spring:
   datasource:

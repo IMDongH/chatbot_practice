@@ -1,4 +1,4 @@
-package com.practice.chatbot.repository;
+package com.practice.chatbot.repository.user;
 
 import com.practice.chatbot.model.user.UserEntity;
 import java.util.Optional;

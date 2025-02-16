@@ -1,8 +1,6 @@
 package com.practice.chatbot.service.user;
 
-import com.practice.chatbot.repository.UserRepository;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import com.practice.chatbot.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

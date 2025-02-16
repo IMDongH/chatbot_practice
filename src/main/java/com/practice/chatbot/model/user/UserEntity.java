@@ -28,6 +28,7 @@ public class UserEntity {
     @Column(nullable = false)
     private Role role;
 
+    private String refreshToken;
 
     @Builder
     private UserEntity(String email, String username, String password, Role role) {
