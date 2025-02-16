@@ -52,8 +52,8 @@ public class AuthenticationService {
             throw new SignInMissMatchException();
         }
 
-        String accessToken = jwtUtil.generateAccessToken(user.getEmail(), user.getRole().name());
-        String refreshToken = jwtUtil.generateRefreshToken(user.getEmail());
+        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getRole().name());
+        String refreshToken = jwtUtil.generateRefreshToken(user.getId());
 
         userTokenRepository.updateRefreshToken(user.getId(),refreshToken);
 

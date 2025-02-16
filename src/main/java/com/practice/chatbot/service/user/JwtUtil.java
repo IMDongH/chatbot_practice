@@ -23,17 +23,17 @@ public class JwtUtil {
         this.refreshExpiration = refreshExpiration;
     }
 
-    public String generateAccessToken(String email, String role) {
-        return generateToken(email, role, accessExpiration);
+    public String generateAccessToken(String id, String role) {
+        return generateToken(id, role, accessExpiration);
     }
 
-    public String generateRefreshToken(String email) {
-        return generateToken(email, null, refreshExpiration);
+    public String generateRefreshToken(String id) {
+        return generateToken(id, null, refreshExpiration);
     }
 
-    private String generateToken(String email, String role, long expirationTime) {
+    private String generateToken(String id, String role, long expirationTime) {
         JwtBuilder builder = Jwts.builder()
-            .setSubject(email)
+            .setSubject(id)
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
             .signWith(key, SignatureAlgorithm.HS256);
