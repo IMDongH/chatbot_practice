@@ -7,6 +7,9 @@ jwt:
   access-expiration: 900000    # Access Token 만료 (15분)
   refresh-expiration: 1209600000 # Refresh Token 만료 (14일)
 
+openai:
+  api:
+    key: "{$api-key}"
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/chatbot

@@ -1,5 +1,5 @@
 services:
-  postgres:
+  chatbot_postgres:
     image: postgres:15.8
     container_name: chatbot_postgres
     environment:
