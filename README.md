@@ -17,8 +17,9 @@ docker-compose up -d
 ### 2. postman json 파일을 import 합니다. 
 ### 3. application. yml 을 수정합니다.
 #### "{$api-key}" 부분을 api key 값으로 수정합니다.
-### 4. 회원 가입, 로그인을 진행합니다.
-### 5. 로그인 결과 token 값을 아래 사진과 같이 postman 에 입력 후 api 를 호출합니다.
+### 4. spring project 를 실행합니다.
+### 5. 회원 가입, 로그인을 진행합니다.
+### 6. 로그인 결과 token 값을 아래 사진과 같이 postman 에 입력 후 api 를 호출합니다.
 
 ```bash
 {
@@ -34,3 +35,5 @@ docker-compose up -d
 }
 ```
 ![img.png](img.png)
+### 7. 질문 생성 api 를 호출합니다
+### 8. 쓰레드 리스트 조회 api 를 호출하빈다.
