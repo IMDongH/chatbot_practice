@@ -1,7 +1,7 @@
-package com.practice.chatbot.filter;
+package com.practice.chatbot.security.filter;
 
-import com.practice.chatbot.service.user.JwtUtil;
-import com.practice.chatbot.vo.user.JwtAuthenticationToken;
+import com.practice.chatbot.security.JwtTokenProvider;
+import com.practice.chatbot.security.vo.JwtAuthenticationToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -11,19 +11,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
+    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -32,21 +33,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         FilterChain filterChain) throws ServletException, IOException {
 
         String token = extractToken(request);
+
         if (token != null) {
             try {
-                Claims claims = jwtUtil.extractClaims(token);
-                String username = claims.getSubject();
+                Claims claims = jwtTokenProvider.extractClaims(token);
+                String email = claims.getSubject();
 
                 UserDetails userDetails = User.builder()
-                    .username(username)
+                    .username(email)
                     .password("") // JWT 인증에서는 비밀번호 필요 없음
                     .roles(claims.get("role", String.class))
                     .build();
 
-                SecurityContextHolder.getContext().setAuthentication(
-                    new JwtAuthenticationToken(userDetails, token, userDetails.getAuthorities())
-                );
+                // 🔥 디버깅 로그 추가 (Claims가 정상적으로 생성되었는지 확인)
+                log.info("Extracted Claims: {}", claims);
+
+                JwtAuthenticationToken authenticationToken =
+                    new JwtAuthenticationToken(userDetails, token, claims, userDetails.getAuthorities());
+
+                // 🔥 SecurityContext에 인증 정보 설정
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+                log.info("SecurityContext Authentication Set: {}", SecurityContextHolder.getContext().getAuthentication());
+
             } catch (JwtException e) {
+                log.error("JWT 검증 실패: {}", e.getMessage());
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
                 return;
             }

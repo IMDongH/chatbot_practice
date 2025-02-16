@@ -1,4 +1,4 @@
-package com.practice.chatbot.config;
+package com.practice.chatbot.web.advice;
 
 import com.practice.chatbot.exception.NotFoundException;
 import com.practice.chatbot.model.GenericResponse;

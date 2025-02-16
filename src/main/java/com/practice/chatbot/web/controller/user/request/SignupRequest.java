@@ -1,4 +1,4 @@
-package com.practice.chatbot.web.user.request;
+package com.practice.chatbot.web.controller.user.request;
 
 import jakarta.validation.constraints.Email;
 import lombok.AccessLevel;

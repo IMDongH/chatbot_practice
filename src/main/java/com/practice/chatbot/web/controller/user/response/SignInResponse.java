@@ -1,4 +1,4 @@
-package com.practice.chatbot.web.user.response;
+package com.practice.chatbot.web.controller.user.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

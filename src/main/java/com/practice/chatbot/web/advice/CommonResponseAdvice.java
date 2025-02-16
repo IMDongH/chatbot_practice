@@ -1,4 +1,4 @@
-package com.practice.chatbot.config;
+package com.practice.chatbot.web.advice;
 
 import com.practice.chatbot.model.GenericResponse;
 import jakarta.servlet.http.HttpServletResponse;

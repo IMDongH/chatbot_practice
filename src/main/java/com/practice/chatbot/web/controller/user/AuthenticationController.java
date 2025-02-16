@@ -1,9 +1,9 @@
-package com.practice.chatbot.web.user;
+package com.practice.chatbot.web.controller.user;
 
 import com.practice.chatbot.service.user.AuthenticationService;
-import com.practice.chatbot.web.user.request.SignInRequest;
-import com.practice.chatbot.web.user.request.SignupRequest;
-import com.practice.chatbot.web.user.response.SignInResponse;
+import com.practice.chatbot.web.controller.user.request.SignInRequest;
+import com.practice.chatbot.web.controller.user.request.SignupRequest;
+import com.practice.chatbot.web.controller.user.response.SignInResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

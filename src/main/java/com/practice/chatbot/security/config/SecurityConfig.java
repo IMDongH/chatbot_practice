@@ -1,10 +1,10 @@
-package com.practice.chatbot.config;
+package com.practice.chatbot.security.config;
 
-import com.practice.chatbot.filter.JwtAuthenticationFilter;
+import com.practice.chatbot.security.filter.JwtAuthenticationFilter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Slf4j
 @Configuration
 public class SecurityConfig {
 
@@ -33,6 +34,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated() // 나머지는 인증 필요
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // JWT 필터 추가
+        log.info("SecurityFilterChain - JWT Authentication Filter added");
 
         return http.build();
     }

@@ -6,9 +6,10 @@ import com.practice.chatbot.exception.user.SignInMissMatchException;
 import com.practice.chatbot.model.user.UserEntity;
 import com.practice.chatbot.repository.user.UserRepository;
 import com.practice.chatbot.repository.user.UserTokenRepository;
-import com.practice.chatbot.web.user.request.SignInRequest;
-import com.practice.chatbot.web.user.request.SignupRequest;
-import com.practice.chatbot.web.user.response.SignInResponse;
+import com.practice.chatbot.security.JwtTokenProvider;
+import com.practice.chatbot.web.controller.user.request.SignInRequest;
+import com.practice.chatbot.web.controller.user.request.SignupRequest;
+import com.practice.chatbot.web.controller.user.response.SignInResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ public class AuthenticationService {
     private final UserTokenRepository userTokenRepository;
     private final UserValidator userValidator;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Transactional
     public void signupMember(SignupRequest request) {
 
@@ -52,11 +54,13 @@ public class AuthenticationService {
             throw new SignInMissMatchException();
         }
 
-        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getRole().name());
-        String refreshToken = jwtUtil.generateRefreshToken(user.getId());
+        String accessToken = jwtTokenProvider.generateAccessToken(user.getId(), user.getUsername(),
+            user.getEmail(), user.getRole().name());
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user.getId());
 
-        userTokenRepository.updateRefreshToken(user.getId(),refreshToken);
+        userTokenRepository.updateRefreshToken(user.getId(), refreshToken);
 
-        return SignInResponse.create(user.getId(),user.getEmail(),user.getUsername(),accessToken);
+        return SignInResponse.create(user.getId(), user.getEmail(), user.getUsername(),
+            accessToken);
     }
 }
