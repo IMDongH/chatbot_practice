@@ -45,13 +45,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .roles(claims.get("role", String.class))
                     .build();
 
-                // 🔥 디버깅 로그 추가 (Claims가 정상적으로 생성되었는지 확인)
                 log.info("Extracted Claims: {}", claims);
 
                 JwtAuthenticationToken authenticationToken =
                     new JwtAuthenticationToken(userDetails, token, claims, userDetails.getAuthorities());
 
-                // 🔥 SecurityContext에 인증 정보 설정
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
                 log.info("SecurityContext Authentication Set: {}", SecurityContextHolder.getContext().getAuthentication());
