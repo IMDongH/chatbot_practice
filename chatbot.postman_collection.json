@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "94507fd6-b653-4420-885b-14fef770595b",
+		"name": "chatbot Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39842450"
+	},
+	"item": [
+		{
+			"name": "authenticaiton",
+			"item": [
+				{
+					"name": "회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"email\" : \"idh1007@naver.com\",\n\"password\" : \"ehdgur\",\n\"username\" : \"임동혁\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/authentication/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"email\" : \"idh1007@naver.com\",\n\"password\" : \"ehdgur\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/authentication/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "질문 생성",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpZGgxMDA3QG5hdmVyLmNvbSIsImlhdCI6MTczOTY5Nzk0OCwiZXhwIjoxNzM5Njk4ODQ4LCJpZCI6IjBhNjQ5NDJkLTE0YjEtNGE4Zi05MjA4LTE5NDkwODM0NjA0MCIsInJvbGUiOiJNRU1CRVIiLCJuYW1lIjoi7J6E64-Z7ZiBIn0.BmlRiiWrAuAqrr_LMUjh5UvGjnZYnN-s_t4VQ0d7GuI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\" : \"내가 하는 질문 다시 응답해줘\",\n    \"model\" : \"gpt-3.5-turbo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/chats/ask",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"chats",
+								"ask"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "쓰레드 리스트 조회",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpZGgxMDA3QG5hdmVyLmNvbSIsImlhdCI6MTczOTY5ODkzOCwiZXhwIjoxNzM5Njk5ODM4LCJpZCI6ImE4Mzk5NDIyLWU4ZDYtNDFmMi1hYzkzLWU4ODY2NzRlMzlhMyIsInJvbGUiOiJNRU1CRVIiLCJuYW1lIjoi7J6E64-Z7ZiBIn0.e3Dpnw2gqfdlXQ5_Q5lcbkSnVcfjYWU0YGHujIO30qo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\" : \"너 누구야\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/chats",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"chats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
