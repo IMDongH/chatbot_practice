@@ -1,5 +1,6 @@
 package com.practice.chatbot.config;
 
+import com.practice.chatbot.model.GenericResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
